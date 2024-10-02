@@ -3,6 +3,7 @@
 // Fix the logo at the end of the image. 
 
 import Button from '../components/Button'
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     const buttonContainerStyle: string = "absolute bottom-[15%] left-1/2 transform -translate-x-1/2";
@@ -11,8 +12,8 @@ const Home = () => {
     return (
     <>
       <div className="min-h-screen bg-contain bg-center bg-no-repeat bg-home-background bg-[url('/src/assets/gamelogo.jpg')]">
-        <div className={buttonContainerStyle}><a href="/quiztype"> <Button label={"Start"} onClick={()=>{}} classes={buttonStyle} /></a>
-            
+        <div className={buttonContainerStyle}>
+          <Link to="/quiztype"> <Button label={"Start"} onClick={()=>{}} classes={buttonStyle} /></Link>
         </div>
       </div>
      
