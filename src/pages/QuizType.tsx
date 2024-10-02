@@ -3,12 +3,18 @@
 
 import Display from '../components/Display'
 import Button from '../components/Button'
+import { useNavigate } from 'react-router-dom';
 
 const QuizType = () =>{
     const options: string[] = ["Countries", "Population", "Capitals", "Birth rate"];
     const buttonStyle: string = "bg-button-colour text-black py-2 px-4 rounded-full w-32 m-3";
     const displayStyle: string = "font-custom"
 
+    const navigate = useNavigate();
+
+    const handleClick = (quiztype: string) =>{
+        navigate("/settings", {state: {quiztype}})
+    }
     return (
         <div className='bg-gradient-to-b from-home-background to-background-gradient min-h-screen flex flex-col items-center justify-center text-white'>
             <section className=''>
@@ -17,7 +23,7 @@ const QuizType = () =>{
             <section className='flex flex-col items-center justify-center'>
                 {
                     options.map((option,index)=>{
-                       return  <Button  label={option} key={option + index} onClick={()=>{}} classes={buttonStyle} />
+                       return  <Button  label={option} key={option + index} onClick={()=>{handleClick(option)}} classes={buttonStyle} />
                     })
                 }
             </section>
