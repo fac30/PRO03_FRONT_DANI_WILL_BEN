@@ -2,3 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+    font-family: "Pacifico";
+    src: url("src/assets/Pacifico/Pacifico-Regular.ttf") format("truetype");
+}
