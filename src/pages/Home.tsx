@@ -11,8 +11,8 @@ const Home = () => {
     return (
     <>
       <div className="min-h-screen bg-contain bg-center bg-no-repeat bg-home-background bg-[url('/src/assets/gamelogo.jpg')]">
-        <div className={buttonContainerStyle}>
-            <Button label={"Start"} onClick={()=>{}} classes={buttonStyle} />
+        <div className={buttonContainerStyle}><a href="/quiztype"> <Button label={"Start"} onClick={()=>{}} classes={buttonStyle} /></a>
+            
         </div>
       </div>
      
