@@ -1,33 +1,32 @@
-import React from 'react';
+//End of Game page
+
 import Display from '../components/Display';
 import Button from '../components/Button';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
-const EndOfGame: React.FC = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { score, totalQuestions } = location.state || { score: 0, totalQuestions: 0 };
 
-  const handleRestart = () => {
-    navigate('/');
-  };
 
-  return (
-    <div className="end-game-container min-h-screen flex flex-col items-center justify-center text-white">
-      <Display
-        heading="Quiz Complete!"
-        score={score}
-        numberOfQuestions={totalQuestions}
-        classes="font-custom"
-      />
-      <Button
-        label="Restart Quiz"
-        onClick={handleRestart}
-        classes="bg-button-colour text-black py-2 px-4 rounded-full w-32 m-3"
-      />
-    </div>
-  );
-};
+const EndOfGame = () => {
+    const [playerScore, setPlayerScore] = useState<number>(0);
+    const [number, setNumber] = useState<number>(0);
+    
+    const buttonContainerStyle: string = "absolute bottom-[15%] left-1/2 transform -translate-x-1/2";
+    const buttonStyle: string = "bg-button-colour text-black py-4 px-8 rounded-full w-64 font-extrabold";
+
+    return (
+
+       
+        <div className = 'bg-gradient-to-b from-home-background to-background-gradient min-h-screen flex flex-col items-center justify-center text-white'>
+            <section>
+                <Display score={playerScore} numberOfQuestions={number} />
+            </section>
+            <section className={buttonContainerStyle}>
+            <Link to="/quiztype"> <Button label={"Play again"} onClick={()=>{}} classes={buttonStyle} /></Link>
+            </section>
+      </div>
+
+    )
+}
 
 export default EndOfGame;
-

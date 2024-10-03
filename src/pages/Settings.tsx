@@ -15,7 +15,7 @@ const Settings = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const buttonStyle: string = 'bg-button-colour text-black py-2 px-4 rounded-full w-32 m-3';
+  const buttonStyle: string = "bg-button-colour text-black py-4 px-8 rounded-full w-64 font-extrabold m-3";
   const displayStyle: string = 'font-custom';
 
   const difficultySettings: string[] = ['Easy', 'Medium', 'Hard'];
@@ -69,7 +69,7 @@ return (
           label="Difficulty"
           options={difficultySettings}
           onSelect={(value) => setSelectedDifficulty(value)}
-          classes=""
+          classes={buttonStyle}
         />
       </section>
       
@@ -78,7 +78,7 @@ return (
           label="Number of Questions"
           options={numberOfQuestions}
           onSelect={(value) => setSelectedNumberOfQuestions(value)}
-          classes=""
+          classes={buttonStyle}
         />
       </section>
 
