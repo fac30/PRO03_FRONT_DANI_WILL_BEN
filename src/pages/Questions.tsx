@@ -18,12 +18,10 @@ const Questions: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Retrieve quiz data from localStorage
     const storedQuizData = localStorage.getItem('quizData');
     if (storedQuizData) {
       setQuestions(JSON.parse(storedQuizData).questions);
     } else {
-      // Redirect to settings page if no quiz data found
       navigate('/settings');
     }
   }, [navigate]);
@@ -48,7 +46,7 @@ const Questions: React.FC = () => {
     return <Display heading="Loading..." />;
   }
 
-  const buttonStyle: string = 'bg-button-colour text-black py-2 px-4 rounded-full w-32 m-3';
+  const buttonStyle: string = 'text-black py-2 px-4 rounded-full w-32 m-3';
   const displayStyle: string = 'font-custom';
 
   return (
@@ -56,14 +54,23 @@ const Questions: React.FC = () => {
       <section className="mb-6">
         <Display question={`Question ${currentQuestionIndex + 1}: ${questions[currentQuestionIndex].questionText}`} classes={displayStyle} />
       </section>
-      
       <section className="flex flex-col items-center mb-6">
         {questions[currentQuestionIndex].options.map((option) => (
           <Button
             key={option}
             label={option}
             onClick={() => handleAnswerClick(option)}
-            classes={`option-button ${selectedAnswer === option ? 'selected bg-blue-500' : buttonStyle}`}
+            classes={buttonStyle}
+            status={
+              selectedAnswer
+                ? option === questions[currentQuestionIndex].correctAnswer
+                  ? 'correct'
+                  : selectedAnswer === option
+                  ? 'incorrect'
+                  : 'default'
+                : 'default'
+            }
+            disabled={!!selectedAnswer} // Disable buttons after selecting an answer
           />
         ))}
       </section>
