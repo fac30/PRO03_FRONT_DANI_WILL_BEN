@@ -1,37 +1,94 @@
-//Settings page
-
-import Display from '../components/Display'
-import Button from '../components/Button'
-import DropDown from '../components/DropDown'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import Display from '../components/Display';
+import Button from '../components/Button';
+import DropDown from '../components/DropDown';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Settings = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    const buttonStyle: string = "bg-button-colour text-black py-2 px-4 rounded-full w-32 m-3";
-    const displayStyle: string = "font-custom";
+  const quizType = location.state?.quiztype || 'Capitals';
 
-    const difficultySettings: string[] = ["Easy", "Medium", "Hard"];
-    const numberOfQuestions: string[] = ['5', '10', '15', '20'];
+  const [selectedDifficulty, setSelectedDifficulty] = useState<string>('Medium');
+  const [selectedNumberOfQuestions, setSelectedNumberOfQuestions] = useState<string>('5');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    return (
-        <div className='bg-gradient-to-b from-home-background to-background-gradient min-h-screen flex flex-col items-center justify-center text-white'>
-            <section className=''>
-                <Display question={"Subject: Capitals"} classes={displayStyle}/>
-            </section>
-        
-            <section className=''>
-                <DropDown label="difficulty"options={difficultySettings} onSelect={()=>{}} classes='' />
-            </section>
-            <section className=''>
-                <DropDown label="numberOfQuestions"options={numberOfQuestions}onSelect={()=>{}} classes='' />
-                <Link to=""> <Button label={"Start"} onClick={()=>{}} classes={buttonStyle} /></Link>
+  const buttonStyle: string = 'bg-button-colour text-black py-2 px-4 rounded-full w-32 m-3';
+  const displayStyle: string = 'font-custom';
 
-            </section>
-            
+  const difficultySettings: string[] = ['Easy', 'Medium', 'Hard'];
+  const numberOfQuestions: string[] = ['5', '10', '15', '20'];
 
+  const handleStartQuiz = async () => {
+  setLoading(true);
+  setErrorMessage(null);
 
-        </div>
-    )    
-}
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/quiz?difficulty=${selectedDifficulty}&type=${quizType}&numberOfQuestions=${parseInt(selectedNumberOfQuestions, 10)}`
+    );
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch quiz data. Please try again.');
+    }
+
+    const data = await response.json();
+
+    // Validate response structure
+    if (!data.quizId || !data.questions) {
+      throw new Error('Invalid quiz data received from the server.');
+    }
+
+    localStorage.setItem('quizData', JSON.stringify(data));
+
+    navigate('/questions', {
+      state: {
+        quizId: data.quizId,
+        quizType,
+        difficulty: selectedDifficulty,
+        numberOfQuestions: parseInt(selectedNumberOfQuestions, 10),
+      },
+    });
+  } catch (error) {
+    console.error('Error:', error);
+    setErrorMessage(error.message || 'An unexpected error occurred. Please try again.');
+  } finally {
+    setLoading(false);
+  }
+};
+return (
+    <div className='bg-gradient-to-b from-home-background to-background-gradient min-h-screen flex flex-col items-center justify-center text-white'>
+      <section>
+        <Display question={`Subject: ${quizType}`} classes={displayStyle} />
+      </section>
+
+      <section>
+        <DropDown
+          label="Difficulty"
+          options={difficultySettings}
+          onSelect={(value) => setSelectedDifficulty(value)}
+          classes=""
+        />
+      </section>
+      
+      <section>
+        <DropDown
+          label="Number of Questions"
+          options={numberOfQuestions}
+          onSelect={(value) => setSelectedNumberOfQuestions(value)}
+          classes=""
+        />
+      </section>
+
+      <section>
+        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+        <Button label={loading ? "Loading..." : "Start"} onClick={handleStartQuiz} classes={buttonStyle} disabled={loading} />
+      </section>
+    </div>
+  );
+};
 
 export default Settings;
+

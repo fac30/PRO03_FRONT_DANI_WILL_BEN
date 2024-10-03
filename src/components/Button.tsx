@@ -1,17 +1,18 @@
-import React from "react";
-
 interface ButtonProps {
   label: string;
   onClick: () => void;
   classes: string;
+  disabled?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ label, onClick, classes }) => {
+const Button: React.FC<ButtonProps> = ({ label, onClick, classes, disabled = false }) => {
   return (
-    <button className={classes} onClick={onClick}>
+    // cool feature - disabled prop stops multiple submissions whilst loading
+    <button className={classes} onClick={onClick} disabled={disabled}>
       {label}
     </button>
   );
 };
 
 export default Button;
+

@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+out.sh
+out.txt
+Setting_Old.tsx
