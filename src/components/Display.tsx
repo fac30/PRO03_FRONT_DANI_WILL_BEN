@@ -3,6 +3,8 @@ import React from "react";
 interface DisplayProps {
   heading?: string;
   question?: string;
+  message?: string;
+  //endGameMessage?: string,
   score?: number;
   numberOfQuestions?: number;
   classes?: string;
@@ -11,6 +13,7 @@ interface DisplayProps {
 const Display: React.FC<DisplayProps> = ({
   heading,
   question,
+  message,
   score,
   numberOfQuestions,
   classes,
@@ -18,11 +21,12 @@ const Display: React.FC<DisplayProps> = ({
   return (
     <div>
       {heading && <h1 className={classes}>{heading}</h1>}
-      {question && <div className={classes}>{question}</div>}
+      {question && <p className={classes}>{question}</p>}
+      {message && <p className={classes}>{message}</p>}
       {score !== undefined && numberOfQuestions !== undefined && (
-        <div className={classes}>
-          You got {score} / {numberOfQuestions} questions correct!
-        </div>
+        <p className={classes}>
+          {`You got ${score} / ${numberOfQuestions} questions correct!`}
+        </p>
       )}
     </div>
   );
