@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import DropDown from '../components/DropDown';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+
 const Settings = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const Settings = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
 
-  const apiUrl = process.env.BACKEND_HOST;
+  const apiUrl = import.meta.env.BACKEND_HOST;
   const buttonStyle: string = "bg-button-colour text-black py-4 px-8 rounded-full w-64 font-extrabold m-3";
   const displayStyle: string = 'font-custom';
 
@@ -54,10 +55,8 @@ const Settings = () => {
     });
   } catch (error) {
     console.error('Error:', error);
-    if(error instanceof(Error)){
-      setErrorMessage(error.message || 'An unexpected error occurred. Please try again.');
-    }
-  } finally {
+    setErrorMessage((error as string) || 'An unexpected error occurred. Please try again.');  
+    } finally {
     setLoading(false);
   }
 };
