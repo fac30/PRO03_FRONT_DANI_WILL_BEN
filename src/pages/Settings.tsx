@@ -15,6 +15,8 @@ const Settings = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+
+  const apiUrl = process.env.BACKEND_HOST;
   const buttonStyle: string = "bg-button-colour text-black py-4 px-8 rounded-full w-64 font-extrabold m-3";
   const displayStyle: string = 'font-custom';
 
@@ -27,7 +29,7 @@ const Settings = () => {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/quiz?difficulty=${selectedDifficulty}&type=${quizType}&numberOfQuestions=${parseInt(selectedNumberOfQuestions, 10)}`
+      `${apiUrl}/api/quiz?difficulty=${selectedDifficulty}&type=${quizType}&numberOfQuestions=${parseInt(selectedNumberOfQuestions, 10)}`
     );
 
     if (!response.ok) {
