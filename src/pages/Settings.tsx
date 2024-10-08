@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Display from '../components/Display';
 import Button from '../components/Button';
 import DropDown from '../components/DropDown';
@@ -54,7 +54,9 @@ const Settings = () => {
     });
   } catch (error) {
     console.error('Error:', error);
-    setErrorMessage(error.message || 'An unexpected error occurred. Please try again.');
+    if(error instanceof(Error)){
+      setErrorMessage(error.message || 'An unexpected error occurred. Please try again.');
+    }
   } finally {
     setLoading(false);
   }
