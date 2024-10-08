@@ -70,7 +70,7 @@ const Questions: React.FC = () => {
                   : 'default'
                 : 'default'
             }
-            disabled={!!selectedAnswer} // Disable buttons after selecting an answer
+            disabled={!!selectedAnswer} // prevent multiple submissions
           />
         ))}
       </section>
