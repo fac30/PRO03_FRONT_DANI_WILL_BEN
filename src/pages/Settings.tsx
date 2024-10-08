@@ -36,7 +36,6 @@ const Settings = () => {
 
     const data = await response.json();
 
-    // Validate response structure
     if (!data.quizId || !data.questions) {
       throw new Error('Invalid quiz data received from the server.');
     }
