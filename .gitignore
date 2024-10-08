@@ -26,3 +26,4 @@ dist-ssr
 out.sh
 out.txt
 Setting_Old.tsx
+.env
