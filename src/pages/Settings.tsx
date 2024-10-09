@@ -17,7 +17,7 @@ const Settings = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
 
-  const apiUrl = import.meta.env.BACKEND_HOST;
+  const apiUrl = import.meta.env.VITE_BACKEND_HOST;
   const buttonStyle: string = "bg-button-colour text-black py-4 px-8 rounded-full w-64 font-extrabold m-3";
   const displayStyle: string = 'font-custom';
 
@@ -27,7 +27,8 @@ const Settings = () => {
   const handleStartQuiz = async () => {
   setLoading(true);
   setErrorMessage(null);
-
+ 
+  console.log(import.meta.env); 
   try {
     const response = await fetch(
       `${apiUrl}/api/quiz?difficulty=${selectedDifficulty}&type=${quizType}&numberOfQuestions=${parseInt(selectedNumberOfQuestions, 10)}`
