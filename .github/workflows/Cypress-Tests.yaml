@@ -1,8 +1,9 @@
 name: Run all Cypress Tests
 on:
-  push:
-    branches:
-      - "*"
+  workflow_run:
+    workflows: ["Git Commit Comment Linter"]
+    types:
+      - completed
 
 jobs:
   run-cypress-tests:
