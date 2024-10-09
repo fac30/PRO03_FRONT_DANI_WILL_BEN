@@ -1,0 +1,22 @@
+name: Git Commit Comment Linter
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  Check Git Commit Message:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code (minimal)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Lint commit message
+        run: |
+          if [[ ! $(git log -1 --pretty=%B) =~ ^(feat|fix|chore|docs|style|refactor|test|perf):\ .{1,72}$ ]]; then
+          echo "Invalid commit message. Please use the conventional commit format (e.g., 'feat: add new feature')."
+          exit 1
+          fi
