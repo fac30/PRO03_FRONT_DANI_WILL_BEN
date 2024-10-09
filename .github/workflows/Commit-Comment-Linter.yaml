@@ -5,7 +5,7 @@ on:
       - "*"
 
 jobs:
-  Check Git Commit Message:
+  Check-Git-Commit-Message:
     runs-on: ubuntu-latest
 
     steps:
