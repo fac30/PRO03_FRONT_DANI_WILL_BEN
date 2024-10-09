@@ -2,7 +2,7 @@ name: Git Commit Comment Linter
 on:
   push:
     branches:
-      - staging
+      - "*"
 
 jobs:
   Check Git Commit Message:
