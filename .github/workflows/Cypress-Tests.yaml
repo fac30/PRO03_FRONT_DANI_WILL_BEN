@@ -38,4 +38,4 @@ jobs:
 
       - name: Cypress Tests Failure Message
         if: failure()
-        run: echo "❌ Cypress tests failed. Please review the test results and fix any issues."
+        run: echo "❌ Cypress tests failed. Please review the test results and fix any issues!"
