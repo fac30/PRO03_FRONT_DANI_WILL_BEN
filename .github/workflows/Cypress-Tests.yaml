@@ -1,0 +1,39 @@
+name: Run all Cypress Tests
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  run-cypress-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.11.1"
+
+      - name: install dependencies
+        run: npm install
+
+      - name: start app
+        run: npm run dev &
+        env:
+          CI: true
+
+      - name: Run Cypress tests
+        run: npx cypress run
+        env:
+          CI: true
+
+      - name: Cypress Tests Success Message
+        if: success()
+        run: echo "✅ Cypress tests ran successfully! All tests passed."
+
+      - name: Cypress Tests Failure Message
+        if: failure()
+        run: echo "❌ Cypress tests failed. Please review the test results and fix any issues."
